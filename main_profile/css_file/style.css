@@ -13,7 +13,6 @@
     --white: #ffffff;
     --gray: #78716c;
     --gray-light: #e7e5e4;
-    --messenger: #006aff;
     --email: #dc2626;
     --shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
@@ -40,22 +39,30 @@ a {
 header {
     background: var(--white);
     box-shadow: var(--shadow);
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    width: 100%;
     z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.header-hidden {
+    transform: translateY(-100%);
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 0;
-    height: 60px;
+    padding: 0.5rem 0;
+    height: 50px;
 }
 
 .logo {
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    margin-left: 8px;
 }
 
 .logo span {
@@ -135,10 +142,10 @@ header {
 .mobile-overlay {
     display: none;
     position: fixed;
-    top: 60px;
+    top: 50px;
     left: 0;
     width: 100%;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 50px);
     background: rgba(0,0,0,0.5);
     z-index: 998;
 }
@@ -153,10 +160,10 @@ header {
     flex-direction: column;
     list-style: none;
     position: fixed;
-    top: 60px;
+    top: 50px;
     right: -100%;
     width: 280px;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 50px);
     background: var(--white);
     box-shadow: -5px 0 30px rgba(0,0,0,0.15);
     padding: 1.5rem 0;
@@ -193,7 +200,7 @@ header {
     font-size: 1.1rem;
 }
 
-/* ===== HERO WITH BG IMAGE ===== */
+/* ===== HERO WITH GRADIENT ONLY ===== */
 .hero {
     position: relative;
     min-height: 500px;
@@ -203,9 +210,10 @@ header {
     text-align: center;
     color: white;
     overflow: hidden;
+    margin-top: 50px;
 }
 
-/* Background image layer */
+/* Background gradient only (no image) */
 .hero-bg {
     position: absolute;
     top: 0;
@@ -216,7 +224,6 @@ header {
     background-position: center;
     background-repeat: no-repeat;
     z-index: 0;
-    /* Fallback gradient if no image */
     background-image: linear-gradient(135deg, #92400e, #b45309, #d97706);
 }
 
@@ -263,6 +270,9 @@ header {
     opacity: 0.85;
     margin-bottom: 2rem;
     font-style: italic;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .hero-buttons {
@@ -321,7 +331,7 @@ header {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
-    max-width: 650px;
+    max-width: 350px;
     margin: 0 auto;
 }
 
@@ -352,12 +362,14 @@ header {
 }
 
 .contact-detail {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     opacity: 0.9;
+    word-break: break-all;
 }
 
-.email     { background: linear-gradient(135deg, #dc2626, #b91c1c); }
-.messenger { background: linear-gradient(135deg, #006aff, #0099ff); }
+.email { 
+    background: linear-gradient(135deg, #dc2626, #b91c1c); 
+}
 
 /* ===== EDUCATION ===== */
 .education {
@@ -584,6 +596,10 @@ footer small {
     .hero h1 {
         font-size: 1.8rem;
     }
+    
+    .hero {
+        margin-top: 50px;
+    }
 
     .contact-grid {
         grid-template-columns: 1fr;
@@ -596,5 +612,9 @@ footer small {
 
     .mobile-menu {
         width: 100%;
+    }
+    
+    .bio {
+        font-size: 0.9rem;
     }
 }
