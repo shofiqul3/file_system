@@ -1,20 +1,25 @@
-// ===== COVER IMAGE SETUP =====
-(function setupCoverImage() {
-    const heroBg = document.getElementById('heroBg');
-    const coverImageUrl = 'images/cover.jpg'; // <-- আপনার কভার ইমেজ এখানে রাখুন
+// ===== HEADER SCROLL HIDE/SHOW =====
+let lastScroll = 0;
+const header = document.getElementById('header');
 
-    const img = new Image();
-    img.onload = function() {
-        // Image exists, use it
-        heroBg.style.backgroundImage = `url('${coverImageUrl}')`;
-    };
-    img.onerror = function() {
-        // Image not found, keep default gradient (already set in CSS)
-        // CSS fallback already active
-    };
-    img.src = coverImageUrl;
-})();
-
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll <= 0) {
+        header.classList.remove('header-hidden');
+        return;
+    }
+    
+    if (currentScroll > lastScroll && currentScroll > 50) {
+        // Scrolling down - hide header
+        header.classList.add('header-hidden');
+    } else if (currentScroll < lastScroll) {
+        // Scrolling up - show header
+        header.classList.remove('header-hidden');
+    }
+    
+    lastScroll = currentScroll;
+});
 
 // ===== 3-DOT MENU TOGGLE =====
 const menuBtn = document.getElementById('menuBtn');
@@ -59,20 +64,23 @@ function closeMenu() {
     document.body.style.overflow = '';
 }
 
-
-// ===== SMOOTH SCROLL =====
+// ===== SMOOTH SCROLL (adjusted for fixed header) =====
 document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', function(e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            const headerHeight = 60;
+            const headerHeight = 50;
             const position = target.offsetTop - headerHeight;
             window.scrollTo({ top: position, behavior: 'smooth' });
+            
+            // Close mobile menu if open
+            if (mobileMenu.classList.contains('active')) {
+                closeMenu();
+            }
         }
     });
 });
-
 
 // ===== GITHUB PROJECTS - AUTO LOAD =====
 async function loadGitHubProjects() {
